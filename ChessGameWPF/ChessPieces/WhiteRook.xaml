@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--This file is NOT compatible with Silverlight-->
+<Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Stretch="Uniform">
+  <Canvas Name="svg42" Width="16.933331" Height="16.93333">
+    <Canvas.RenderTransform>
+      <TranslateTransform X="0" Y="0"/>
+    </Canvas.RenderTransform>
+    <Canvas.Resources>
+      <LinearGradientBrush xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Key="a" MappingMode="RelativeToBoundingBox" StartPoint="0,0" EndPoint="1,1">
+        <LinearGradientBrush.GradientStops>
+          <GradientStopCollection>
+            <GradientStop Color="#FFFFFF" Offset="0"/>
+          </GradientStopCollection>
+        </LinearGradientBrush.GradientStops>
+      </LinearGradientBrush>
+      <LinearGradientBrush xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Key="b" MappingMode="RelativeToBoundingBox" StartPoint="0,0" EndPoint="1,1">
+        <LinearGradientBrush.GradientStops>
+          <GradientStopCollection>
+            <GradientStop Color="#CCCCCC" Offset="0"/>
+          </GradientStopCollection>
+        </LinearGradientBrush.GradientStops>
+        <LinearGradientBrush.Transform>
+          <TranslateTransform X="-6e-8" Y="2.1166665"/>
+        </LinearGradientBrush.Transform>
+      </LinearGradientBrush>
+      <LinearGradientBrush xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Key="c" MappingMode="RelativeToBoundingBox" StartPoint="0,0" EndPoint="1,1">
+        <LinearGradientBrush.GradientStops>
+          <GradientStopCollection>
+            <GradientStop Color="#33000000" Offset="0"/>
+          </GradientStopCollection>
+        </LinearGradientBrush.GradientStops>
+      </LinearGradientBrush>
+      <LinearGradientBrush xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Key="i" MappingMode="Absolute" StartPoint="4,6" EndPoint="12,6">
+        <LinearGradientBrush.GradientStops>
+          <GradientStopCollection>
+            <GradientStop Color="#FFFFFF" Offset="0"/>
+          </GradientStopCollection>
+        </LinearGradientBrush.GradientStops>
+      </LinearGradientBrush>
+      <LinearGradientBrush xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Key="g" MappingMode="Absolute" StartPoint="4,14" EndPoint="13,14">
+        <LinearGradientBrush.GradientStops>
+          <GradientStopCollection>
+            <GradientStop Color="#FFFFFF" Offset="0"/>
+          </GradientStopCollection>
+        </LinearGradientBrush.GradientStops>
+      </LinearGradientBrush>
+      <LinearGradientBrush xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Key="e" MappingMode="Absolute" StartPoint="41,10" EndPoint="48,10">
+        <LinearGradientBrush.GradientStops>
+          <GradientStopCollection>
+            <GradientStop Color="#FFFFFF" Offset="0"/>
+          </GradientStopCollection>
+        </LinearGradientBrush.GradientStops>
+      </LinearGradientBrush>
+      <LinearGradientBrush xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Key="j" MappingMode="Absolute" StartPoint="0,0" EndPoint="1,1">
+        <LinearGradientBrush.GradientStops>
+          <GradientStopCollection>
+            <GradientStop Color="#CCCCCC" Offset="0"/>
+          </GradientStopCollection>
+        </LinearGradientBrush.GradientStops>
+        <LinearGradientBrush.Transform>
+          <TranslateTransform X="-6e-8" Y="2.1166665"/>
+        </LinearGradientBrush.Transform>
+      </LinearGradientBrush>
+      <LinearGradientBrush xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Key="h" MappingMode="Absolute" StartPoint="0,0" EndPoint="1,1">
+        <LinearGradientBrush.GradientStops>
+          <GradientStopCollection>
+            <GradientStop Color="#CCCCCC" Offset="0"/>
+          </GradientStopCollection>
+        </LinearGradientBrush.GradientStops>
+        <LinearGradientBrush.Transform>
+          <TranslateTransform X="-6e-8" Y="2.1166665"/>
+        </LinearGradientBrush.Transform>
+      </LinearGradientBrush>
+      <LinearGradientBrush xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Key="f" MappingMode="Absolute" StartPoint="0,0" EndPoint="1,1">
+        <LinearGradientBrush.GradientStops>
+          <GradientStopCollection>
+            <GradientStop Color="#CCCCCC" Offset="0"/>
+          </GradientStopCollection>
+        </LinearGradientBrush.GradientStops>
+        <LinearGradientBrush.Transform>
+          <TranslateTransform X="-6e-8" Y="2.1166665"/>
+        </LinearGradientBrush.Transform>
+      </LinearGradientBrush>
+      <LinearGradientBrush xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Key="d" MappingMode="Absolute" StartPoint="4,24" EndPoint="103,24">
+        <LinearGradientBrush.GradientStops>
+          <GradientStopCollection>
+            <GradientStop Color="#33000000" Offset="0"/>
+          </GradientStopCollection>
+        </LinearGradientBrush.GradientStops>
+        <LinearGradientBrush.Transform>
+          <MatrixTransform Matrix="1 0 0 1.25 .79374989 -3.0427069"/>
+        </LinearGradientBrush.Transform>
+      </LinearGradientBrush>
+    </Canvas.Resources>
+    <!--Unknown tag: sodipodi:namedview-->
+    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path20" Fill="{StaticResource d}">
+      <Path.Data>
+        <PathGeometry Figures="M5.0270826 14.816665c0 .992188 2.645833 1.322916 4.2333328 1.322916 1.5874976 0 4.2333306-.330728 4.2333306-1.322916 0-.992187-2.778792-1.322916-4.2333306-1.322916-1.4545399 0-4.2333328.330729-4.2333328 1.322916z" FillRule="NonZero"/>
+      </Path.Data>
+      <Path.RenderTransform>
+        <MatrixTransform Matrix="1.21528 0 0 1 -2.405139 9.6e-7"/>
+      </Path.RenderTransform>
+    </Path>
+    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path22" Fill="{StaticResource e}">
+      <Path.Data>
+        <PathGeometry Figures="m41.27498 12.964582.529167-6.3499996h5.291666l.529167 6.3499996" FillRule="NonZero"/>
+      </Path.Data>
+      <Path.RenderTransform>
+        <TranslateTransform X="-35.983317"/>
+      </Path.RenderTransform>
+    </Path>
+    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path24" Fill="{StaticResource f}">
+      <Path.Data>
+        <PathGeometry Figures="m9.5249662 6.8791657.5291668 6.3499993 1.5875-.264583-.529167-6.3499996z" FillRule="NonZero"/>
+      </Path.Data>
+      <Path.RenderTransform>
+        <TranslateTransform X=".00003"/>
+      </Path.RenderTransform>
+    </Path>
+    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path26" StrokeThickness="1.05833" Stroke="#FF000000" StrokeMiterLimit="2.4" StrokeLineJoin="Round">
+      <Path.Data>
+        <PathGeometry Figures="m41.27498 12.699998.529167-5.0270824m5.291666 0 .529167 5.0270824" FillRule="NonZero"/>
+      </Path.Data>
+      <Path.RenderTransform>
+        <TranslateTransform X="-35.983317"/>
+      </Path.RenderTransform>
+    </Path>
+    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path28" Fill="{StaticResource g}">
+      <Path.Data>
+        <PathGeometry Figures="M4.4978974 12.699998s-.2645833.529167-.2645647 1.5875c1.5874998.529167 4.2333329.529167 4.2333329.529167s2.6458334 0 4.2333334-.529167c-.000019-1.058333-.264602-1.5875-.264602-1.5875-1.322917.529167-3.9687501.529167-3.9687501.529167s-2.645833 0-3.9687495-.529167z" FillRule="NonZero"/>
+      </Path.Data>
+      <Path.RenderTransform>
+        <TranslateTransform X=".00003"/>
+      </Path.RenderTransform>
+    </Path>
+    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path30" Fill="{StaticResource h}">
+      <Path.Data>
+        <PathGeometry Figures="m12.435396 12.699998.264583 1.5875-1.852082.264583-.264583-1.322916 1.852082-.529167" FillRule="NonZero"/>
+      </Path.Data>
+      <Path.RenderTransform>
+        <TranslateTransform X=".00003"/>
+      </Path.RenderTransform>
+    </Path>
+    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path32" StrokeThickness="1.05833" Stroke="#FF000000" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round">
+      <Path.Data>
+        <PathGeometry Figures="M4.4979274 12.699998s-.2645833.529167-.2645647 1.5875c1.5874998.529167 4.2333329.529167 4.2333329.529167s2.6458334 0 4.2333334-.529167c-.000019-1.058333-.264602-1.5875-.264602-1.5875-1.322917.529167-3.9687501.529167-3.9687501.529167s-2.645833 0-3.9687495-.529167z" FillRule="NonZero"/>
+      </Path.Data>
+    </Path>
+    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path34" Fill="{StaticResource i}">
+      <Path.Data>
+        <PathGeometry Figures="M5.2916335 3.9687495s-.7937685 2.3812496-.7937499 3.4395828c1.5874991.5291676 3.9687796 7e-7 3.9687796 7e-7s2.3812198.5291669 3.9687198-7e-7c-.000019-1.0583332-.529167-3.4395828-.529167-3.4395828-1.322917.5291666-3.4395829.2645833-3.4395829.2645833s-1.8520842.2645833-3.1749996-.2645833z" FillRule="NonZero"/>
+      </Path.Data>
+      <Path.RenderTransform>
+        <TranslateTransform X=".00003"/>
+      </Path.RenderTransform>
+    </Path>
+    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path36" Fill="{StaticResource j}">
+      <Path.Data>
+        <PathGeometry Figures="m11.906227 5.2916656.264572 2.1166667-.79375.7937499-.529166-4.2333327h.79375" FillRule="NonZero"/>
+      </Path.Data>
+      <Path.RenderTransform>
+        <TranslateTransform X=".00003"/>
+      </Path.RenderTransform>
+    </Path>
+    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path38" StrokeThickness="1.05833" Stroke="#FF000000" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round">
+      <Path.Data>
+        <PathGeometry Figures="M4.7624969 3.9687495s-.2646019 2.3812496-.2645833 3.4395828c1.3229165.5291666 3.9687796.5291673 3.9687796.5291673s2.6458028-7e-7 3.9687198-.5291673c-.000019-1.0583332-.264584-3.4395828-.264584-3.4395828H4.7624969z" FillRule="NonZero"/>
+      </Path.Data>
+    </Path>
+    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path40" StrokeThickness="1.05833" Stroke="#FF000000" StrokeLineJoin="Round">
+      <Path.Data>
+        <PathGeometry Figures="m7.1437166 3.7041662-.1466061 2.3812496m2.6341609-2.3812496.1466061 2.3812496" FillRule="NonZero"/>
+      </Path.Data>
+      <Path.RenderTransform>
+        <TranslateTransform X=".07916911" Y=".00673837"/>
+      </Path.RenderTransform>
+    </Path>
+  </Canvas>
+</Viewbox>

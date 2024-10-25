@@ -1,0 +1,128 @@
+﻿<Window x:Class="ChessGameWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Chess Game - חצי שח"
+        WindowStyle="None"
+        WindowState="Maximized"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Icon="chess.ico">
+
+    <!-- Main Grid with Black Background -->
+    <Grid Background="#1C1C1C">
+        
+        <!-- Chess Board Grid -->
+        <Grid Name="ChessBoardGrid" Background="Black" Margin="0,60,0,0" Visibility="Collapsed" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="30"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Chessboard Labels -->
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="a" Foreground="White" FontSize="16"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="0" Grid.Column="2" Text="b" Foreground="White" FontSize="16"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="0" Grid.Column="3" Text="c" Foreground="White" FontSize="16"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="0" Grid.Column="4" Text="d" Foreground="White" FontSize="16"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="9" Grid.Column="1" Text="a" Foreground="White" FontSize="16"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="9" Grid.Column="2" Text="b" Foreground="White" FontSize="16"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="9" Grid.Column="3" Text="c" Foreground="White" FontSize="16"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="9" Grid.Column="4" Text="d" Foreground="White" FontSize="16"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Grid>
+
+        <!-- Toolbar Overlay -->
+        <Grid Panel.ZIndex="1" Background="#404040"  VerticalAlignment="Top" Margin="0,0,0,0" MouseDown="TitleBar_MouseDown">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Game Control Buttons (Centered) -->
+            <StackPanel Orientation="Horizontal" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" >
+                <Button Content="Play" Width="80"  FontSize="16"  Margin="0,1,5,1"
+            Background="#4CAF50" Foreground="White"
+            BorderBrush="Transparent" Padding="5,2"  Cursor="Hand"
+            Click="PlayGame"/>
+                <Button Content="Register" Width="80"  FontSize="16" Margin="0,1,5,1"
+            Background="#4CAF50" Foreground="White"
+            BorderBrush="Transparent" Padding="5,2" Cursor="Hand"
+            Click="OpenRegistrationWebsite"/>
+ 
+                <Button Content="Records" Width="80" FontSize="16" Margin="0,1,5,1"
+            Background="#4CAF50" Foreground="White"
+            BorderBrush="Transparent" Padding="5,2"  Cursor="Hand"
+            Click="OpenRecords"/>
+            </StackPanel>
+
+            <!-- Timer and Window Control Buttons (Right-Aligned) -->
+            <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,0,0">
+                <TextBlock Text="00:00" Name="GameTimer" Foreground="White" FontSize="24"
+                           Margin="0,0,0,0" VerticalAlignment="Center"/>
+
+                <!-- Restart Button -->
+                <Button Width="30" Height="30" 
+                        Background="Transparent" BorderBrush="Transparent" Click="RestartGame">
+                    <TextBlock Text="↻" FontSize="16"
+                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                               Foreground="White"/>
+                </Button>
+
+                <!-- Minimize Button -->
+                <Button Width="30" Height="30" Click="MinimizeWindow"
+                        Background="Transparent" BorderBrush="Transparent">
+                    <TextBlock Text="-" FontSize="18"
+                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                               Foreground="White"/>
+                </Button>
+
+                <!-- Maximize/Restore Button -->
+                <Button Width="30" Height="30" Click="MaximizeWindow"
+                        Background="Transparent" BorderBrush="Transparent">
+                    <TextBlock Text="□" FontSize="16"
+                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                               Foreground="White"/>
+                </Button>
+
+                <!-- Close Button -->
+                <Button Width="30" Height="30" Click="CloseWindow"
+                        Background="Transparent" BorderBrush="Transparent">
+                    <TextBlock Text="x" FontSize="16" Foreground="Red"
+                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                               />
+                </Button>
+            </StackPanel>
+        </Grid>
+        <Image Name="DrawingImage"
+               Stretch="Fill"
+               HorizontalAlignment="Stretch"
+               VerticalAlignment="Stretch"
+               Opacity="1" />
+
+        <!-- Canvas for Free Drawing -->
+        <Canvas Name="DrawingCanvas" Background="Transparent" />
+    </Grid>
+</Window>

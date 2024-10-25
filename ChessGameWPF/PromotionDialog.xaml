@@ -1,0 +1,38 @@
+﻿<Window x:Class="ChessGameWPF.PromotionDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Promote Pawn" Height="200" Width="400"
+        WindowStyle="None" Background="#1C1C1C" AllowsTransparency="True" Icon="chess.ico">
+
+    <Grid Background="#1C1C1C">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0">
+            <TextBlock Text="Choose a piece to promote to:" FontSize="20" Margin="0,0,0,10" 
+                       Foreground="White" HorizontalAlignment="Center" />
+
+            <ComboBox x:Name="PieceComboBox" Width="200" Height="30" SelectedIndex="0"
+                  Style="{StaticResource CustomComboBoxStyle}" 
+                  ItemContainerStyle="{StaticResource CustomComboBoxItemStyle}">
+                <!-- ComboBox items for promotion -->
+                <ComboBoxItem Content="Rook" />
+                <ComboBoxItem Content="Bishop" />
+                <ComboBoxItem Content="Knight" />
+            </ComboBox>
+
+            <Button Content="OK" Width="100" Height="30" Margin="0,10,0,0" FontSize="16"
+                    Background="#4CAF50" Foreground="White" BorderBrush="Transparent" 
+                    Cursor="Hand" Click="OkButton_Click" />
+        </StackPanel>
+
+        <!-- Toolbar Overlay with Top-Right Aligned Close Button -->
+        <Grid Background="#404040" Height="30" VerticalAlignment="Top" MouseDown="DragWindow">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+             
+                
+            </Grid.ColumnDefinitions>
+
+            <Button Content="X" Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Center" Width="30"
+     Foreground="Red" HorizontalAlignment="Right" Click="CloseWindow"/>
+        </Grid>
+    </Grid>
+</Window>

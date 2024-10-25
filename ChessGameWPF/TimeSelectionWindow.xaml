@@ -1,0 +1,61 @@
+﻿<Window x:Class="ChessGameWPF.TimeSelectionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Select Time Per Player" Height="300" Width="400"
+        WindowStyle="None" Background="#1C1C1C" AllowsTransparency="True" Icon="chess.ico">
+
+    <Grid Background="#1C1C1C">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+
+            <TextBlock Text="User ID:" FontSize="16" Margin="0,10,0,0" 
+                       Foreground="White" HorizontalAlignment="Left"/>
+
+            <TextBox x:Name="UserIdTextBox" Width="200" Height="30" 
+                     Foreground="Gray" Background="#404040" 
+                     BorderBrush="#4CAF50" BorderThickness="1" 
+                     Margin="0,0,0,10" Padding="3" 
+                     Text="Enter User ID" FontSize="16" 
+                     TextAlignment="Center"/>
+            <TextBlock Text="Select Your Color:" FontSize="16" Margin="0,10,0,0" 
+             Foreground="White" HorizontalAlignment="Left"/>
+
+            <!-- Color ComboBox styled similarly -->
+            <ComboBox x:Name="ColorComboBox" Width="200" Height="30" SelectedIndex="0"
+            Style="{StaticResource CustomComboBoxStyle}"
+            ItemContainerStyle="{StaticResource CustomComboBoxItemStyle}">
+                <ComboBoxItem Content="White" />
+                <ComboBoxItem Content="Black" />
+            </ComboBox>
+            
+            <TextBlock Text="Select Time Per Player:" FontSize="16" Margin="0,10,0,0" 
+                       Foreground="White" HorizontalAlignment="Left"/>
+
+            <ComboBox x:Name="TimeComboBox" Width="200" Height="30" SelectedIndex="0"
+                      Style="{StaticResource CustomComboBoxStyle}"
+                      ItemContainerStyle="{StaticResource CustomComboBoxItemStyle}">
+                <ComboBoxItem Content="20 seconds" />
+                <ComboBoxItem Content="30 seconds" />
+                <ComboBoxItem Content="1 minute" />
+                <ComboBoxItem Content="2 minutes" />
+                <ComboBoxItem Content="5 minutes" />
+            </ComboBox>
+
+          
+
+            <Button Content="OK" Width="100" Height="40" Margin="0,10,0,0" FontSize="16"
+                    Background="#4CAF50" Foreground="White" BorderBrush="Transparent" 
+                    Cursor="Hand" Click="OkButton_Click"/>
+        </StackPanel>
+
+        <Grid Background="#404040" VerticalAlignment="Top" MouseDown="DragWindow">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button Content="X" Background="Transparent" BorderBrush="Transparent" 
+                    VerticalAlignment="Center" Width="30"
+                    Foreground="Red" HorizontalAlignment="Right" 
+                    Click="CloseWindow"/>
+        </Grid>
+    </Grid>
+</Window>
