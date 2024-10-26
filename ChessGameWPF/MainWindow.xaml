@@ -34,24 +34,6 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="30"/>
             </Grid.ColumnDefinitions>
-
-            <!-- Chessboard Labels -->
-            <TextBlock Grid.Row="0" Grid.Column="1" Text="a" Foreground="White" FontSize="16"
-                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <TextBlock Grid.Row="0" Grid.Column="2" Text="b" Foreground="White" FontSize="16"
-                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <TextBlock Grid.Row="0" Grid.Column="3" Text="c" Foreground="White" FontSize="16"
-                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <TextBlock Grid.Row="0" Grid.Column="4" Text="d" Foreground="White" FontSize="16"
-                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <TextBlock Grid.Row="9" Grid.Column="1" Text="a" Foreground="White" FontSize="16"
-                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <TextBlock Grid.Row="9" Grid.Column="2" Text="b" Foreground="White" FontSize="16"
-                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <TextBlock Grid.Row="9" Grid.Column="3" Text="c" Foreground="White" FontSize="16"
-                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <TextBlock Grid.Row="9" Grid.Column="4" Text="d" Foreground="White" FontSize="16"
-                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>
 
         <!-- Toolbar Overlay -->

@@ -1008,6 +1008,16 @@ namespace ChessGameWPF
 
                 // Play tick sound on every tick
                 PlayTick();
+                // Change the timer text color to red in the last 5 seconds
+                if (_timeRemaining <= 5)
+                {
+                    GameTimer.Foreground = Brushes.Red; // Set text color to red
+                    ShakeGrid(ChessBoardGrid); // Shake the chessboard grid
+                }
+                else
+                {
+                    GameTimer.Foreground = Brushes.White; // Reset to white (or any default color)
+                }
 
                 // Check if time is up
                 if (_timeRemaining <= 0)
@@ -1018,6 +1028,36 @@ namespace ChessGameWPF
             };
 
             _gameTimer.Start(); // Start the timer
+        }
+        private void ShakeGrid(UIElement element)
+        {
+            // Create a TranslateTransform to move the grid
+            TranslateTransform transform = new TranslateTransform();
+            element.RenderTransform = transform;
+
+            // Create a more subtle shake animation for the X-axis
+            DoubleAnimation shakeAnimationX = new DoubleAnimation
+            {
+                From = -2, // Smaller amplitude for subtle shake
+                To = 2,
+                Duration = TimeSpan.FromMilliseconds(80), // Slightly longer duration for smoothness
+                AutoReverse = true,
+                RepeatBehavior = new RepeatBehavior(4) // Fewer repetitions for a gentler effect
+            };
+
+            // Create a more subtle shake animation for the Y-axis
+            DoubleAnimation shakeAnimationY = new DoubleAnimation
+            {
+                From = -1, // Even smaller vertical movement
+                To = 1,
+                Duration = TimeSpan.FromMilliseconds(80), // Match the X-axis duration for uniform motion
+                AutoReverse = true,
+                RepeatBehavior = new RepeatBehavior(4) // Fewer repetitions for subtlety
+            };
+
+            // Apply the animations to the X and Y properties of the transform
+            transform.BeginAnimation(TranslateTransform.XProperty, shakeAnimationX);
+            transform.BeginAnimation(TranslateTransform.YProperty, shakeAnimationY);
         }
 
         private async void EndGame(int winType, string? message)
@@ -1331,6 +1371,8 @@ namespace ChessGameWPF
                         catch (CastlingException ex)
                         {
                             if (_selectedPiecePosition == null) return;
+                            if (_timeRemaining <= 5)
+                                GameTimer.Foreground = Brushes.White; // Reset to white (or any default color)
                             // Reset the game timer after a valid move
                             ResetGameTimer();
                             // Play move sound
@@ -1421,6 +1463,8 @@ namespace ChessGameWPF
                         // Attempt to move the piece in the chessboard logic
                         if (_chessboard.MovePiece(_selectedPiecePosition.Value, (row - 1, col - 1)))
                         {
+                            if(_timeRemaining<=5)
+                            GameTimer.Foreground = Brushes.White; // Reset to white (or any default color)
                             // Reset the game timer after a valid move
                             ResetGameTimer();
                             // Play move sound
@@ -1509,6 +1553,8 @@ namespace ChessGameWPF
                     catch (EnpassantException ex)
                     {
                         if (_selectedPiecePosition == null) return;
+                        if (_timeRemaining <= 5)
+                            GameTimer.Foreground = Brushes.White; // Reset to white (or any default color)
                         // Reset the game timer after a valid move
                         ResetGameTimer();
                         // Play move sound
@@ -1608,6 +1654,8 @@ namespace ChessGameWPF
                             if (!_isGameEnded)
                             {
                                 if (_selectedPiecePosition == null) return;
+                                if (_timeRemaining <= 5)
+                                    GameTimer.Foreground = Brushes.White; // Reset to white (or any default color)
                                 ResetGameTimer();
 
                                 UpdateSquare(_selectedPiecePosition.Value.Row, _selectedPiecePosition.Value.Col);
@@ -1680,6 +1728,8 @@ namespace ChessGameWPF
                         if (!_isGameEnded)
                         {
                             if (_selectedPiecePosition == null) return;
+                            if (_timeRemaining <= 5)
+                                GameTimer.Foreground = Brushes.White; // Reset to white (or any default color)
                             ResetGameTimer();
                             PromotePawn((row - 1, col - 1), promotionDialog.SelectedPiece);
                             _stepOrder++;
