@@ -23,7 +23,7 @@ This custom chess variant delivers a refreshing gameplay experience with **advan
 
 🎥 **Watch the Demo Videos**:
 [![ChessGameWPF-Gameplay](https://img.youtube.com/vi/51A4xsYjNX4/0.jpg)](https://www.youtube.com/watch?v=51A4xsYjNX4)  
-[![ChessGameWPF-Records](https://img.youtube.com/vi/51A4xsYjNX4/0.jpg)](https://www.youtube.com/watch?v=51A4xsYjNX4)  
+[![ChessGameWPF-Records](https://img.youtube.com/vi/WM0rT5jcTt0/0.jpg)](https://www.youtube.com/watch?v=WM0rT5jcTt0)  
 (*Click the thumbnail to watch the video.*)
 
 ## 🛠️ **WPF Client Features**  
