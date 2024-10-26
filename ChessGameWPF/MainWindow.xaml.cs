@@ -125,8 +125,17 @@ namespace ChessGameWPF
                      ShowErrorMessage($"Print Board API Error: {printResponse.ReasonPhrase}", "API Error");
                  }*/
                 // Send the chessboard state to the API
-                HttpResponseMessage response = await _httpClient.PostAsJsonAsync("move", _chessboard);
+                //HttpResponseMessage response = await _httpClient.PostAsJsonAsync("move", _chessboard);
 
+                var moveStep = new CombinedMoveRequest
+                {
+                    GameId = _currentGameId,
+                    Board = _chessboard,
+                    StepOrder = _stepOrder,
+
+
+                };
+                HttpResponseMessage response = await _httpClient.PostAsJsonAsync("move-store", moveStep);
                 // Check if the response is successful
                 if (response.IsSuccessStatusCode)
                 {
@@ -138,11 +147,11 @@ namespace ChessGameWPF
                         if (moveResponse.From == null || moveResponse.To == null ) return;
                         if (moveResponse.Promotion == null)
                         {
-                            ApplyApiMove(moveResponse.From.Value, moveResponse.To.Value,null);
+                            ApplyApiMoveAndStore(moveResponse.From.Value, moveResponse.To.Value,null);
                         }
                         else
                         {
-                            ApplyApiMove(moveResponse.From.Value, moveResponse.To.Value, moveResponse.Promotion);
+                            ApplyApiMoveAndStore(moveResponse.From.Value, moveResponse.To.Value, moveResponse.Promotion);
                         }
 
                     }
@@ -169,7 +178,272 @@ namespace ChessGameWPF
             }
 
         }
+        private async void ApplyApiMoveAndStore((int Row, int Col) from, (int Row, int Col) to, string? promotion)
+        {
+            try
+            {
 
+                await Task.Delay(200);
+                // Get the piece at the selected position
+                var selectedPiece = _chessboard.Board[from.Row][from.Col];
+
+                if (selectedPiece == null)
+                    throw new InvalidOperationException("No piece to move.");
+
+                // Get valid moves for the piece
+                var validMoves = selectedPiece.Range(from, _chessboard.Board);
+
+                // Apply bounce animation to the selected piece
+                UIElement? pieceIcon = GetPieceElementAt(from.Row + 1, from.Col + 1);
+                if (pieceIcon == null) return;
+
+                BounceAnimation(pieceIcon);
+                HighlightValidMoves(validMoves);
+
+                // Delay to allow the bounce animation to complete before highlighting
+                await Task.Delay(500);
+
+                // Highlight valid moves
+
+                // Attempt to move the piece
+                if (_chessboard.MovePiece(from, to))
+                {
+
+                    ResetGameTimer();
+                    // Play move sound
+                    PlayMove();
+
+                    // Save the move to the database
+                    _stepOrder++;
+                    string? name = _chessboard.Board?[to.Row][to.Col]?.Type;
+                    if (name != null)
+                    {
+                        var moveStep = new MoveStepRequest
+                        {
+                            GameId = _currentGameId,
+                            From = from,
+                            To = to,
+                            StepOrder = _stepOrder,
+                            PieceType = name,
+                            Promotion = promotion,
+                            Castling = false,
+                            EnPassant = false
+
+
+                        };
+                        var taskClient = Task.Run(() =>
+                        {
+                            try
+                            {
+                                // Save the step in the background
+                                _gameRecordService.SaveStep(_currentGameId, from, to, _stepOrder, name, null, false, false);
+                            }
+                            catch (SqlException)
+                            {
+                                // Handle SQL-specific connection errors
+                                ShowErrorAndClose(
+                                    "Lost connection to the local database. The game will now close.",
+                                    "Database Connection Error"
+                                );
+                            }
+                            catch (Exception ex)
+                            {
+                                // Handle all other exceptions
+                                ShowErrorAndClose(
+                                    $"Error saving step: {ex.Message}. The game will now close.",
+                                    "Save Error"
+                                );
+                            }
+                        });
+                        _ongoingTasks.Add(taskClient); // Add to task list
+
+                    }
+
+                    // Perform the fade-out and move-up animation after the move
+                    FadeOutAndMoveUpAnimation(pieceIcon, () =>
+                    {
+                        Dispatcher.Invoke(() =>
+                        {
+                            ClearHighlights(); // Clear highlights after the animation completes
+                            UpdateSquare(from.Row, from.Col); // Update original square
+                            UpdateSquare(to.Row, to.Col); // Update destination square
+                            _selectedPiecePosition = null; // Reset selected position
+                            _apiTurn = false;
+                        });
+                    });
+                }
+            }
+            catch (TieException ex)
+            {
+                EndGame(3, ex.Message);
+            }
+            catch (CastlingException ex)
+            {
+                ResetGameTimer();
+                UIElement? pieceIcon = GetPieceElementAt(from.Row + 1, from.Col + 1);
+                if (pieceIcon == null) return;
+                // Play move sound
+                PlayMove();
+
+                // Save the move to the database
+                _stepOrder++;
+                var moveStep = new MoveStepRequest
+                {
+                    GameId = _currentGameId,
+                    From = from,
+                    To = to,
+                    StepOrder = _stepOrder,
+                    PieceType = "King",
+                    Promotion = null,
+                    Castling = true,
+                    EnPassant = false
+                };
+
+                var taskClient = Task.Run(() =>
+                {
+                    try
+                    {
+                        // Save the step in the background
+                        _gameRecordService.SaveStep(_currentGameId, from, to, _stepOrder, "King", null, false, true);
+                    }
+                    catch (SqlException)
+                    {
+                        // Handle SQL-specific connection errors
+                        ShowErrorAndClose(
+                            "Lost connection to the local database. The game will now close.",
+                            "Database Connection Error"
+                        );
+                    }
+                    catch (Exception ex)
+                    {
+                        // Handle all other exceptions
+                        ShowErrorAndClose(
+                            $"Error saving step: {ex.Message}. The game will now close.",
+                            "Save Error"
+                        );
+                    }
+                });
+                _ongoingTasks.Add(taskClient); // Add to task list
+
+
+
+
+                // Perform the fade-out and move-up animation after the move
+                FadeOutAndMoveUpAnimation(pieceIcon, () =>
+                {
+                    Dispatcher.Invoke(() =>
+                    {
+                        ClearHighlights(); // Clear highlights after the animation completes
+                        foreach (var (r, c) in ex.UpdatedPositions)
+                        {
+                            UpdateSquare(r, c); // Update the affected squares
+                        }
+                        _selectedPiecePosition = null; // Reset selected position
+                        _apiTurn = false;
+
+                    });
+                });
+            }
+
+            catch (EnpassantException ex)
+            {
+                ResetGameTimer();
+                UIElement? pieceIcon = GetPieceElementAt(from.Row + 1, from.Col + 1);
+                if (pieceIcon == null) return;
+                // Play move sound
+                PlayMove();
+
+                // Save the move to the database
+                _stepOrder++;
+                string? name = _chessboard.Board?[to.Row][to.Col]?.Type;
+                if (name != null)
+                {
+
+                    var taskClient = Task.Run(() =>
+                    {
+                        try
+                        {
+                            // Save the step in the background
+                            _gameRecordService.SaveStep(_currentGameId, from, to, _stepOrder, name, null, true, false);
+                        }
+                        catch (SqlException)
+                        {
+                            // Handle SQL-specific connection errors
+                            ShowErrorAndClose(
+                                "Lost connection to the local database. The game will now close.",
+                                "Database Connection Error"
+                            );
+                        }
+                        catch (Exception ex)
+                        {
+                            // Handle all other exceptions
+                            ShowErrorAndClose(
+                                $"Error saving step: {ex.Message}. The game will now close.",
+                                "Save Error"
+                            );
+                        }
+                    });
+                    _ongoingTasks.Add(taskClient); // Add to task list
+                }
+
+
+
+                // Perform the fade-out and move-up animation after the move
+                FadeOutAndMoveUpAnimation(pieceIcon, () =>
+                {
+                    Dispatcher.Invoke(() =>
+                    {
+                        ClearHighlights(); // Clear highlights after the animation completes
+                        UpdateSquare(from.Row, from.Col); // Update original square
+                        UpdateSquare(to.Row, to.Col); // Update destination square
+                        UpdateSquare(ex.Position.Row, ex.Position.Col);
+                        _selectedPiecePosition = null; // Reset selected position
+                        _apiTurn = false;
+
+                    });
+                });
+            }
+            catch (PawnException)
+            {
+                ResetGameTimer();
+                _stepOrder++;
+               
+                var taskClient = Task.Run(() =>
+                {
+                    try
+                    {
+                        // Save the step in the background
+                        _gameRecordService.SaveStep(_currentGameId, from, to, _stepOrder, "Pawn", promotion, false, false);
+                    }
+                    catch (SqlException)
+                    {
+                        // Handle SQL-specific connection errors
+                        ShowErrorAndClose(
+                            "Lost connection to the local database. The game will now close.",
+                            "Database Connection Error"
+                        );
+                    }
+                    catch (Exception ex)
+                    {
+                        // Handle all other exceptions
+                        ShowErrorAndClose(
+                            $"Error saving step: {ex.Message}. The game will now close.",
+                            "Save Error"
+                        );
+                    }
+                });
+                _ongoingTasks.Add(taskClient); // Add to task list
+                PromotePawn(to, promotion);
+            }
+            catch (CheckmateException ex)
+            {
+                EndGame(1, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ShowErrorMessage($"Error applying move: {ex.Message}", "Game Error");
+            }
+        }
         private async void ApplyApiMove((int Row, int Col) from, (int Row, int Col) to,string? promotion)
         {
             try
