@@ -95,6 +95,7 @@ namespace ChessGameWPF
         public MainWindow()
         {
             InitializeComponent();
+            // Start the gradient animation storyboard
             DrawWelcomeScreen();
             _moveSteps = new List<MoveStepRequest>();
             // Handle KeyDown to toggle drawing mode
@@ -107,11 +108,12 @@ namespace ChessGameWPF
             //disable the top layers clicking event blocking the game moves.
             //canvas is used for background in the end and start of the game.
             //image is used to load the writablebitmap .
-            DrawingCanvas.IsHitTestVisible = false;
+            DrawingImage.Visibility = Visibility.Collapsed;
             DrawingImage.IsHitTestVisible = false;
 
             PrepareMediaPlayers(); // Prepare sounds
             InitializeWriteableBitmap(); // Initialize drawing surface
+
         }
 
         private async Task GetMoveFromApi()
@@ -765,9 +767,9 @@ namespace ChessGameWPF
         }
         private void InitializeWriteableBitmap()
         {
-            // Get dimensions from the ChessBoardGrid or DrawingCanvas
-            int width = (int)DrawingCanvas.ActualWidth;
-            int height = (int)DrawingCanvas.ActualHeight;
+            // Get dimensions from the main window
+            int width = (int)this.ActualWidth;
+            int height = (int)this.ActualHeight;
 
             if (width <= 0 || height <= 0) return;
 
@@ -788,12 +790,14 @@ namespace ChessGameWPF
 
                 if (_isDrawing)
                 {
+                    DrawingImage.Visibility = Visibility.Visible;
                     Cursor = Cursors.Cross; // Change to drawing cursor
                 }
                 else
                 {
                     ClearDrawing(); // Clear the drawing when exiting draw mode
                     Cursor = Cursors.Arrow; // Reset cursor
+                    DrawingImage.Visibility = Visibility.Collapsed;
                 }
             }
         }
@@ -942,49 +946,81 @@ namespace ChessGameWPF
         }
         private void DrawWelcomeScreen()
         {
-            // Clear previous drawings
-            DrawingCanvas.Children.Clear();
+            // Create an overlay grid to cover the entire ChessBoardGrid
+            Grid overlayGrid = new Grid
+            {
+                Background = new SolidColorBrush(Color.FromArgb(180, 0, 0, 0)), // Semi-transparent background
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                VerticalAlignment = VerticalAlignment.Stretch,
+            };
+
+            // Set the overlay grid to cover the entire ChessBoardGrid
+            Grid.SetRowSpan(overlayGrid, ChessBoardGrid.RowDefinitions.Count);
+            Grid.SetColumnSpan(overlayGrid, ChessBoardGrid.ColumnDefinitions.Count);
+
+            // Create a StackPanel to hold the icon and text side by side
+            StackPanel contentPanel = new StackPanel
+            {
+                Orientation = Orientation.Horizontal,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center
+            };
 
             // Load the chess icon image
             Image chessIcon = new Image
             {
-                Source = new BitmapImage(new Uri("/Images/chess.png", UriKind.Relative)),
+                Source = new BitmapImage(new Uri("./Images/chess.png", UriKind.Relative)),
                 Width = 150,  // Adjust size as needed
                 Height = 150,
-                Stretch = Stretch.Uniform
+                Stretch = Stretch.Uniform,
+                Margin = new Thickness(0, 0, 20, 0)  // Add right margin for spacing between icon and text
             };
 
-            // Calculate the center position for the icon
-            double iconX = (DrawingCanvas.ActualWidth / 2) - (chessIcon.Width + 10); // Adjust for spacing
-            double iconY = (DrawingCanvas.ActualHeight / 2) - (chessIcon.Height / 2);
+            // Create a Grid to layer the stroke and main text
+            Grid textLayer = new Grid();
 
-            // Set icon position
-            Canvas.SetLeft(chessIcon, iconX);
-            Canvas.SetTop(chessIcon, iconY);
-            DrawingCanvas.Children.Add(chessIcon);
-            // Create a TextBlock for the LiteChess text
+            // Create the stroke TextBlock for the LiteChess title
+            TextBlock liteChessStrokeText = new TextBlock
+            {
+                Text = "LiteChess",
+                FontSize = 100,  // Slightly larger for the stroke effect
+                FontFamily = new FontFamily(new Uri("pack://application:,,,/"), "./Fonts/#Srisakdi"),
+                FontWeight = FontWeights.Bold,
+                Foreground = new SolidColorBrush(Color.FromRgb(77, 77, 77)), // Medium-dark gray for a subtle 3D effect
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+            };
+
+
+            // Create the main TextBlock for the LiteChess title
             TextBlock liteChessText = new TextBlock
             {
                 Text = "LiteChess",
-                FontSize = 50,
-                Foreground = Brushes.Gold,
+                FontSize = 105,
+                FontFamily = new FontFamily(new Uri("pack://application:,,,/"), "./Fonts/#Srisakdi"),
+                FontWeight = FontWeights.Bold,
+                Foreground = new SolidColorBrush(Color.FromRgb(246, 195, 37)), // Main color (#f6c325)
+                HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center,
-                HorizontalAlignment = HorizontalAlignment.Left
             };
 
-            // Measure the text size
-            liteChessText.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-            Size textSize = liteChessText.DesiredSize;
+            // Add both TextBlocks to the Grid (stroke at back, main text on top)
+            textLayer.Children.Add(liteChessStrokeText);
+            textLayer.Children.Add(liteChessText);
 
-            // Calculate the center position for the text (aligned to the right of the icon)
-            double textX = iconX + chessIcon.Width + 20; // Spacing between icon and text
-            double textY = (DrawingCanvas.ActualHeight / 2) - (textSize.Height / 2);
+            // Add the icon and layered text to the content panel
+            contentPanel.Children.Add(chessIcon);
+            contentPanel.Children.Add(textLayer);
 
-            // Set text position
-            Canvas.SetLeft(liteChessText, textX);
-            Canvas.SetTop(liteChessText, textY);
-            DrawingCanvas.Children.Add(liteChessText);
+            // Add the content panel to the overlay grid
+            overlayGrid.Children.Add(contentPanel);
+
+            // Add the overlay grid to ChessBoardGrid
+            ChessBoardGrid.Children.Add(overlayGrid);
         }
+
+
+
 
         private void InitializeGameTimer()
         {
@@ -1209,7 +1245,7 @@ namespace ChessGameWPF
         {
             try
             {
-                // Prepare move.mp3
+                // Prepare move.mp3new Uri("pack://application:,,,/"), "./Fonts/#Srisakdi"
                 var moveUri = new Uri("Sounds/move.mp3", UriKind.Relative);
                 _movePlayer.Open(moveUri);
 
@@ -1731,6 +1767,9 @@ namespace ChessGameWPF
                             if (_timeRemaining <= 5)
                                 GameTimer.Foreground = Brushes.White; // Reset to white (or any default color)
                             ResetGameTimer();
+
+                            UpdateSquare(_selectedPiecePosition.Value.Row, _selectedPiecePosition.Value.Col);
+
                             PromotePawn((row - 1, col - 1), promotionDialog.SelectedPiece);
                             _stepOrder++;
                     
@@ -1984,10 +2023,6 @@ namespace ChessGameWPF
         }
 
 
-        private void RenderDrawingOnBoard()
-        {
-            DrawingCanvas.Children.Clear();
-        }
 
         private void BounceAnimation(UIElement pieceText)
         {
@@ -2244,9 +2279,6 @@ namespace ChessGameWPF
                     _turnTime = timeSelectionWindow.SelectedTimeInSeconds;
                     _stepOrder = 0;
 
-                    // Hide the welcome canvas and show the chessboard grid
-                    DrawingCanvas.Children.Clear();
-                    ChessBoardGrid.Visibility = Visibility.Visible;
 
 
                     if(userColor == PieceColor.White)
@@ -2390,23 +2422,6 @@ namespace ChessGameWPF
             MessageBox.Show("Login feature is not implemented yet.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        private void RestartGame(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                _chessboard = new Chessboard(); // Reset the chessboard logic
-                InitializeLabels(); // Set up labels once
-                RenderBoard(); // Re-render the chessboard
-                ClearHighlights(); // Clear any highlights
-                _selectedPiecePosition = null; // Reset selected piece state
-                ResetGameTimer();
-                MessageBox.Show("Game restarted!", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            catch (Exception ex)
-            {
-                ShowErrorMessage(ex.Message, "Error Restarting Game");
-            }
-        }
         private void UnregisterEventHandlers()
         {
             this.KeyDown -= MainWindow_KeyDown;

@@ -11,9 +11,25 @@
 
   <ItemGroup>
     <None Remove="chess.ico" />
+    <None Remove="Fonts\Srisakdi-Bold.ttf" />
     <None Remove="Images\chess.png" />
     <None Remove="Sounds\move.mp3" />
     <None Remove="Sounds\tick.mp3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="ChessPieces\BlackBishop.xaml" />
+    <Page Remove="ChessPieces\BlackKing.xaml" />
+    <Page Remove="ChessPieces\BlackKnight.xaml" />
+    <Page Remove="ChessPieces\BlackPawn.xaml" />
+    <Page Remove="ChessPieces\BlackQueen.xaml" />
+    <Page Remove="ChessPieces\BlackRook.xaml" />
+    <Page Remove="ChessPieces\WhiteBishop.xaml" />
+    <Page Remove="ChessPieces\WhiteKing.xaml" />
+    <Page Remove="ChessPieces\WhiteKnight.xaml" />
+    <Page Remove="ChessPieces\WhitePawn.xaml" />
+    <Page Remove="ChessPieces\WhiteQueen.xaml" />
+    <Page Remove="ChessPieces\WhiteRook.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,6 +55,45 @@
 
   <ItemGroup>
     <Resource Include="chess.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="ChessPieces\BlackBishop.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="ChessPieces\BlackKing.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="ChessPieces\BlackKnight.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="ChessPieces\BlackPawn.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="ChessPieces\BlackQueen.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="ChessPieces\BlackRook.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="ChessPieces\WhiteBishop.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="ChessPieces\WhiteKing.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="ChessPieces\WhiteKnight.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="ChessPieces\WhitePawn.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="ChessPieces\WhiteQueen.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="ChessPieces\WhiteRook.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Srisakdi-Bold.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

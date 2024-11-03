@@ -12,7 +12,7 @@
     <Grid Background="#1C1C1C">
         
         <!-- Chess Board Grid -->
-        <Grid Name="ChessBoardGrid" Background="Black" Margin="0,60,0,0" Visibility="Collapsed" >
+        <Grid Name="ChessBoardGrid" Background="Black" Margin="0,60,0,0" Visibility="Visible" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="*"/>
@@ -65,14 +65,6 @@
                 <TextBlock Text="00:00" Name="GameTimer" Foreground="White" FontSize="24"
                            Margin="0,0,0,0" VerticalAlignment="Center"/>
 
-                <!-- Restart Button -->
-                <Button Width="30" Height="30" 
-                        Background="Transparent" BorderBrush="Transparent" Click="RestartGame">
-                    <TextBlock Text="↻" FontSize="16"
-                               VerticalAlignment="Center" HorizontalAlignment="Center"
-                               Foreground="White"/>
-                </Button>
-
                 <!-- Minimize Button -->
                 <Button Width="30" Height="30" Click="MinimizeWindow"
                         Background="Transparent" BorderBrush="Transparent">
@@ -104,7 +96,5 @@
                VerticalAlignment="Stretch"
                Opacity="1" />
 
-        <!-- Canvas for Free Drawing -->
-        <Canvas Name="DrawingCanvas" Background="Transparent" />
     </Grid>
 </Window>

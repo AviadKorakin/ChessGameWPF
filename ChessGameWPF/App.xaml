@@ -3,6 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+
+            <SolidColorBrush x:Key="DefaultTextColor" Color="#f6c325" />
+        
+        
+
         <!-- Custom ComboBox Style -->
         <Style TargetType="ComboBox" x:Key="CustomComboBoxStyle">
             <Setter Property="Foreground" Value="White" />
@@ -85,6 +90,7 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+            
     </Application.Resources>
 
 
