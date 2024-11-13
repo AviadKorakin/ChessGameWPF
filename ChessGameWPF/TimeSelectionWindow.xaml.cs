@@ -70,6 +70,8 @@ namespace ChessGameWPF
 
         private void CloseWindow(object sender, RoutedEventArgs e)
         {
+            UserIdTextBox.GotFocus -= UserIdTextBox_GotFocus;
+            UserIdTextBox.LostFocus -= UserIdTextBox_LostFocus;
             this.Close();
         }
 
